@@ -1,5 +1,3 @@
-import { lazyLoad } from './loadscreen.js'
-
 import * as dat from 'dat.gui';
 
 import * as THREE from 'three';
@@ -472,6 +470,9 @@ loader = new GLTFLoader()
 
 loader.load('./assets/house.gltf', gltf => {
 
+  // Remove loading screen
+  document.querySelector('.lazyLoad').remove()
+
   models = gltf.scene
 
   models.traverse(child => {
@@ -492,10 +493,7 @@ loader.load('./assets/house.gltf', gltf => {
     models: models.children
   })
 },
-xhr => {
-  lazyLoad(xhr.loaded / xhr.total * 100)
-  console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' )
-},
+xhr => console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' ),
 err => console.error( 'An error happened', err ))
 
 
